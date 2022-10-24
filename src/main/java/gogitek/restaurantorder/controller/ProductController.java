@@ -105,11 +105,9 @@ public class ProductController {
     public String getViewProductDetail(@PathVariable int id, Model model) {
         Integer idCategory = productService.getCategoryId(id);
         List<Product> list = productService.getListProductByCategoryId(idCategory);
-        Collections.shuffle(list);
-        if (list.size() > 8) list = list.subList(0, 7);
         model.addAttribute("listSimilar", list);
         model.addAttribute("productDetail", productService.getProductById(id));
-        return "productdetail";
+        return "chonmon";
     }
 
     @PostMapping("/product/{id}")
