@@ -40,6 +40,7 @@ public class OrderAdminController {
 
     @GetMapping("/admin/order")
     public String getListOrderAdmin(Model model, HttpServletRequest request) {
+        model.addAttribute("topOder", adminService.getTopOrderDetail());
         model.addAttribute("countOrder", adminService.countOrders());
         model.addAttribute("countCart", adminService.countCart());
         model.addAttribute("dateFill", new DateFilterDTO());

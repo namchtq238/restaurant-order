@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{header :: html_header}"></head>
+
+<body>
+<header th:replace="header :: my-header"></header>
+<section class="breadcrum">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb container">
+            <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Danh mục sản phẩm</li>
+        </ol>
+    </nav>
+</section>
+<!--====== SHOPPING CART PART START ======-->
+
+<div th:replace="index :: my-cart"></div>
+
+<!--====== SHOPPING CART PART ENDS ======-->
+
+<div class="orfarm-shop-grid-area pt-100 pb-50 ">
+    <div class="container">
+        <div class="row pb-35">
+            <div class="col-lg-3 order-2 order-lg-1">
+                <div class="orfarm-shop-sidebar">
+                    <div class="shop-category-widget">
+                        <h4 class="title">Danh Mục Sản Phẩm</h4>
+                        <ul>
+                            <li class="fruit" th:each="item, state : ${listCategory}">
+                                <a th:href="@{'/category/' + ${item.id}}" th:text="${item.name}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="row">
+                    <div class="banner-collection pb-5 ">
+                        <img th:src="@{'/image/ImageOrFarm/'+${category.image}}" style="width: 1100px" height="262px" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6" th:each="pro, state : ${listProduct}" id = "list-product">
+                        <div class="single-shop-box">
+                            <div class="thumb text-center">
+                                <img th:src="@{'/image/ImageOrFarm/'+${pro.image}}" alt="">
+                                <div class="cart-list-icon">
+                                    <ul>
+                                        <li class="shopping-bag"><a th:href="@{#}"><i
+                                                class="fal fa-shopping-bag"></i></a></li>
+                                        <li><a th:href="@{#}"><i class="fal fa-heart"></i></a></li>
+                                        <li><a th:href="@{'/product/' + ${pro.id}}"><i class="fal fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <input type="hidden" id="productId" value="1">
+                                <a th:href="@{'/product/' + ${pro.id}}" th:text="${pro.name}"></a>
+                                <div class="pricing">
+                                    <th:block th:if="${pro.percentDiscount!=0}">
+                                        <div class="discount-price">
+                                            <th:block th:with="discountPrice=${(pro.salePrice * (100 - pro.percentDiscount))/100}">
+                                                <span th:text="${format.formatPrice(discountPrice)}"></span><sup>đ</sup>
+                                            </th:block>
+                                        </div>
+                                        <div class="regular-price">
+                                            <span th:text="${format.formatPrice(pro.salePrice)}+'đ'"></span>
+                                        </div>
+                                    </th:block>
+                                    <th:block th:unless="${pro.percentDiscount!=0}">
+                                        <div class="discount-price">
+                                            <span th:text="${format.formatPrice(pro.salePrice)}"></span><sup>đ</sup>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{footer :: html_footer}"></footer>
+    </div>
+</div>
+</body>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<th:block th:insert="~{header :: script}"></th:block>
+</html>
