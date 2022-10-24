@@ -22,6 +22,18 @@
 <div class="orfarm-shop-grid-area pt-100 pb-50 ">
     <div class="container">
         <div class="row pb-35">
+            <div class="col-lg-3 order-2 order-lg-1">
+                <div class="orfarm-shop-sidebar">
+                    <div class="shop-category-widget">
+                        <h4 class="title">Danh Mục Sản Phẩm</h4>
+                        <ul>
+                            <li class="fruit" th:each="item, state : ${listCategory}">
+                                <a th:href="@{'/category/' + ${item.id}}" th:text="${item.name}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="row">
                     <div class="banner-collection pb-5 ">
