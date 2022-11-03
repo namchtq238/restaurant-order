@@ -15,7 +15,7 @@
 </section>
 <!--====== SHOPPING CART PART START ======-->
 
-<div th:replace="index :: my-cart"></div>
+<div th:replace="index :: my-preOrder"></div>
 
 <!--====== SHOPPING CART PART ENDS ======-->
 
@@ -33,7 +33,7 @@
                         <div class="single-shop-box">
                             <div class="thumb text-center">
                                 <img th:src="@{'/image/ImageOrFarm/'+${pro.image}}" alt="">
-                                <div class="cart-list-icon">
+                                <div class="preOrder-list-icon">
                                     <ul>
                                         <li class="shopping-bag"><a th:href="@{#}"><i
                                                 class="fal fa-shopping-bag"></i></a></li>

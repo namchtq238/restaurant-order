@@ -3,7 +3,6 @@ package gogitek.restaurantorder.controller.admincontroller;
 import gogitek.restaurantorder.constaint.Role;
 import gogitek.restaurantorder.entity.User;
 import gogitek.restaurantorder.modelutil.PasswordDTO;
-import gogitek.restaurantorder.service.AdminService;
 import gogitek.restaurantorder.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

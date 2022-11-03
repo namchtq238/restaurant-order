@@ -3,6 +3,7 @@ package gogitek.restaurantorder.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,23 +14,38 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
-    private String briefDesc;
-    private Float salePrice;
-    private Float percentDiscount;
-    private Integer quantityProd;
-    private Integer quantityImport;
-    private boolean isHot = false;
+
+    @Column(name = "sale_price")
+    private Double salePrice;
+
+    @Column(name = "percent_discount")
+    private Double percentDiscount;
+
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @Column(name = "hot")
+    private Boolean isHot = false;
+
+    @Column(name = "image")
     private String image;
-    @ManyToOne(targetEntity = Category.class, cascade = CascadeType.DETACH)
+
+
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "cate_id", referencedColumnName = "id")
     private Category category;
-    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product")
-    private Set<OrderDetail> orderDetail;
+
     @Column(name = "cost")
-    private Float cost;
-    @OneToMany(targetEntity = Cart.class, cascade = CascadeType.ALL, mappedBy = "product")
-    private Set<Cart> cart;
+    private Double cost;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<PreOrder> preOrder = new HashSet<>();
 }

@@ -9,16 +9,25 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "order_detail")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Float price;
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "quantity")
     private Integer quantity;
-    @ManyToOne(targetEntity = Orders.class,cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Orders orders;
-    @ManyToOne(targetEntity = Product.class, cascade = CascadeType.ALL)
+    private Orders order;
+
+
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 }

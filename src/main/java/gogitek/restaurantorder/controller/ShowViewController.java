@@ -1,7 +1,5 @@
 package gogitek.restaurantorder.controller;
 
-import gogitek.restaurantorder.service.CartService;
-import gogitek.restaurantorder.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

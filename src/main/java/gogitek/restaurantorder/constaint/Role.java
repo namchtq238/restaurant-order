@@ -2,7 +2,7 @@ package gogitek.restaurantorder.constaint;
 
 public enum Role {
 
-    ADMIN("ADMIN", 0), CUSTOMER("CUSTOMER", 1), STAFF("STAFF", 2);
+    ADMIN("ADMIN", 0), CUSTOMER("CUSTOMER", 1), STAFF("STAFF", 2), CHIEF("CHIEF", 3);
     private final String type;
     private final Integer value;
 

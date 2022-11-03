@@ -16,26 +16,35 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-//    @NotEmpty(message = "Không được để trống tên")
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "first_name")
     private String firstName;
-//    @NotEmpty(message = "Không được để trống tên")
+
+    @Column(name = "last_name")
     private String lastName;
-    @Column(unique = true)
+
+    @Column(unique = true, name = "email")
     @NotNull
-//    @NotEmpty(message = "Không được để trống email")
-//    @Email(message = "Email không hợp lệ")
     private String email;
+
     @NotNull
-//    @NotEmpty(message = "Thiếu password")
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "role")
+    @Enumerated
     private Role role;
-    @OneToMany(targetEntity = Cart.class, mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Cart> cart;
+
     @OneToMany(targetEntity = Orders.class, mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Order> orders;
+    private Set<Orders> orders;
 
     public String getName() {
         return lastName +" "+ firstName;

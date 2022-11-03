@@ -7,17 +7,17 @@
 
     <!--====== SHOPPING CART PART START ======-->
 
-    <div th:replace="index :: my-cart"></div>
+    <div th:replace="index :: my-preOrder"></div>
     <!--====== SHOPPING CART PART ENDS ======-->
 
     <main>
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 mt-70 mb-50">
-                    <div class="common-view-cart pt-4 pb-4">
-                        <p class="text-cart  mb-0 ">Thanh toán</p>
+                    <div class="common-view-preOrder pt-4 pb-4">
+                        <p class="text-preOrder  mb-0 ">Thanh toán</p>
                     </div>
-                    <form method="post" th:action="@{/cart/save}" th:object="${listQuantity}">
+                    <form method="post" th:action="@{/preOrder/save}" th:object="${listQuantity}">
                         <div class="displayProduct row pt-3 pb-3">
                         <ul id="mainCart">
                             <div th:each="cartItem : ${listProductInCart}">
@@ -48,7 +48,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/cart/' + ${cartItem.productId}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a th:href="@{'/preOrder/' + ${cartItem.productId}}" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <div class="icon-delete" id="1">
                                                         <i class="icon-delete1 fas fa-trash-alt">
                                                         </i>

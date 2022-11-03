@@ -1,13 +1,9 @@
 package gogitek.restaurantorder.controller;
 
 import gogitek.restaurantorder.constaint.FormatPrice;
-import gogitek.restaurantorder.entity.Cart;
+import gogitek.restaurantorder.entity.PreOrder;
 import gogitek.restaurantorder.modelutil.CartDTO;
 import gogitek.restaurantorder.modelutil.CartItem;
-import gogitek.restaurantorder.service.CartService;
-import gogitek.restaurantorder.service.CategoryService;
-import gogitek.restaurantorder.service.OrderService;
-import gogitek.restaurantorder.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +36,8 @@ public class CartController {
     }
     @GetMapping("/cart")
     public String getViewCart(Model model) {
-        List<Cart> carts = cartService.getAllCartByUser();
-        List<CartItem> listProductInCart = productService.getProductFromCart(carts);
+        List<PreOrder> preOrders = cartService.getAllCartByUser();
+        List<CartItem> listProductInCart = productService.getProductFromCart(preOrders);
         Float tempPrice = productService.getTempPriceOfCart(listProductInCart);
         Float ship = 20000f;
         if(tempPrice > 50000) ship = 0f;
@@ -71,8 +67,8 @@ public class CartController {
         for(int i=0; i<list.length; i++){
             soluong.add(Integer.parseInt(list[i]));
         }
-        List<Cart> listCart = cartService.getAllCartByUser();
-        cartService.saveNewQuantity(listCart, soluong);
+        List<PreOrder> listPreOrder = cartService.getAllCartByUser();
+        cartService.saveNewQuantity(listPreOrder, soluong);
         return "redirect:/cart";
     }
     @GetMapping("/user/repurchase/{id}")

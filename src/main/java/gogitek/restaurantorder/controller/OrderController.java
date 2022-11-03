@@ -45,12 +45,12 @@ public class OrderController {
 
     @GetMapping("/payment")
     public String getViewPayment(Model model, RedirectAttributes redirectAttributes) {
-        List<Cart> listCart = cartService.getAllCartByUser();
-        if (listCart.isEmpty()) {
+        List<PreOrder> listPreOrder = cartService.getAllCartByUser();
+        if (listPreOrder.isEmpty()) {
             redirectAttributes.addFlashAttribute("msg", "Không có sản phẩm nào để thanh toán");
             return "redirect:/cart";
         }
-        List<CartItem> listProductInCart = productService.getProductFromCart(listCart);
+        List<CartItem> listProductInCart = productService.getProductFromCart(listPreOrder);
         Float tempPrice = productService.getTempPriceOfCart(listProductInCart);
         Float ship = 20000f;
         if (tempPrice > 50000) ship = 0f;
@@ -67,8 +67,8 @@ public class OrderController {
     @PostMapping("/payment/process")
     public String handlePaymentProcess(@ModelAttribute PaymentInformation paymentInformation) {
         User user = userService.getCurrentUser();
-        List<Cart> listCart = cartService.getAllCartByUser();
-        List<CartItem> listProductInCart = productService.getProductFromCart(listCart);
+        List<PreOrder> listPreOrder = cartService.getAllCartByUser();
+        List<CartItem> listProductInCart = productService.getProductFromCart(listPreOrder);
         Orders orders = orderService.saveNewOrder(paymentInformation);
         orders.setUser(user);
         Set<OrderDetail> orderDetailList = new HashSet<>();

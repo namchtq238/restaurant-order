@@ -1,19 +1,29 @@
 package gogitek.restaurantorder.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
-    private String description;
+
+    @Column(name = "image")
     private String image;
-    @OneToMany(targetEntity = Product.class, mappedBy = "category",cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Product> product;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Product> product = new HashSet<>();
 }
