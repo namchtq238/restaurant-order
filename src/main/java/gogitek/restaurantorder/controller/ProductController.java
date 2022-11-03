@@ -1,9 +1,7 @@
 package gogitek.restaurantorder.controller;
 
 import gogitek.restaurantorder.constaint.FormatPrice;
-import gogitek.restaurantorder.entity.Product;
-import gogitek.restaurantorder.modelutil.FilterProduct;
-import gogitek.restaurantorder.modelutil.SearchDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,29 +10,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-import java.util.List;
-
 @Controller
+@AllArgsConstructor
 public class ProductController {
-    private final ProductService productService;
-    private final CategoryService categoryService;
-    private final CartService cartService;
+//    private final ProductService productService;
+//    private final CategoryService categoryService;
+//    private final CartService cartService;
     private final FormatPrice formatPrice;
 
-    public ProductController(ProductService productService, CategoryService categoryService,
-                             CartService cartService, FormatPrice formatPrice) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.cartService = cartService;
-        this.formatPrice = formatPrice;
-    }
+//    public ProductController(ProductService productService, CategoryService categoryService,
+//                             CartService cartService, FormatPrice formatPrice) {
+//        this.productService = productService;
+//        this.categoryService = categoryService;
+//        this.cartService = cartService;
+//        this.formatPrice = formatPrice;
+//    }
 
     @ModelAttribute
     public void addAttributeToHeader(Model model) {
-        model.addAttribute("listCategory", categoryService.getListCategory());
+//        model.addAttribute("listCategory", categoryService.getListCategory());
         model.addAttribute("format", formatPrice);
-        model.addAttribute("countCartItem", cartService.countNumberOfItemInCart());
+//        model.addAttribute("countCartItem", cartService.countNumberOfItemInCart());
     }
 
     @GetMapping("/category/{id}")
@@ -51,59 +47,48 @@ public class ProductController {
     public String getViewProduct(@PathVariable("id") int id,
                                  @PathVariable("page") long currentPage,
                                  Model model) {
-        long totalPage = productService.getTotalPage(id);
-        Integer sum = productService.getTotal(id);
-        List<Product> productList = productService.getListProductByHot();
-        Collections.shuffle(productList);
-        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
-        else model.addAttribute("bestSeller", productList.subList(0, 3));
-        model.addAttribute("filter", new FilterProduct());
-        model.addAttribute("input", new SearchDTO());
-        model.addAttribute("totalPage", totalPage);
+//        long totalPage = productService.getTotalPage(id);
+//        Integer sum = productService.getTotal(id);
+//        List<Product> productList = productService.getListProductByHot();
+//        Collections.shuffle(productList);
+//        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
+//        else model.addAttribute("bestSeller", productList.subList(0, 3));
+//        model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("categoryId", id);
-        model.addAttribute("sum", sum);
-        model.addAttribute("listProduct", productService.getByPage(currentPage, id));
-        model.addAttribute("category", categoryService.getCategoryById(id).get());
+//        model.addAttribute("sum", sum);
+//        model.addAttribute("listProduct", productService.getByPage(currentPage, id));
+//        model.addAttribute("category", categoryService.getCategoryById(id).get());
         return "chonban";
     }
 
     @GetMapping("/category/{id}/fill-result/{page}")
     public String getViewProductFill(@PathVariable("id") int id,
-                                     @ModelAttribute FilterProduct filter,
                                      @PathVariable("page") long currentPage,
                                      Model model) {
-        Float start = filter.getFillStart();
-        Float end = filter.getFillEnd();
-        if (start > end) {
-            Float temp = start;
-            start = end;
-            end = temp;
-        }
-        Integer sum = productService.getTotalByFill(start, end, id);
-        long totalPage = productService.getTotalPageByFill(start, end, id);
-        List<Product> productList = productService.getListProductByHot();
-        Collections.shuffle(productList);
-        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
-        else model.addAttribute("bestSeller", productList.subList(0, 3));
-        model.addAttribute("currentFilter", filter);
-        model.addAttribute("filter", new FilterProduct());
-        model.addAttribute("input", new SearchDTO());
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("categoryId", id);
-        model.addAttribute("sum", sum);
-        model.addAttribute("listProduct", productService.getListProductFillByPage(start, end, currentPage, id));
-        model.addAttribute("category", categoryService.getCategoryById(id).get());
+//        long totalPage = productService.getTotalPageByFill(start, end, id);
+//        List<Product> productList = productService.getListProductByHot();
+//        Collections.shuffle(productList);
+//        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
+//        else model.addAttribute("bestSeller", productList.subList(0, 3));
+//        model.addAttribute("currentFilter", filter);
+//        model.addAttribute("filter", new FilterProduct());
+//        model.addAttribute("input", new SearchDTO());
+//        model.addAttribute("totalPage", totalPage);
+//        model.addAttribute("currentPage", currentPage);
+//        model.addAttribute("categoryId", id);
+//        model.addAttribute("sum", sum);
+//        model.addAttribute("listProduct", productService.getListProductFillByPage(start, end, currentPage, id));
+//        model.addAttribute("category", categoryService.getCategoryById(id).get());
         return "dokho";
     }
 
     @GetMapping("/product/{id}")
     public String getViewProductDetail(@PathVariable int id, Model model) {
-        Integer idCategory = productService.getCategoryId(id);
-        List<Product> list = productService.getListProductByCategoryId(idCategory);
-        model.addAttribute("listSimilar", list);
-        model.addAttribute("productDetail", productService.getProductById(id));
+//        Integer idCategory = productService.getCategoryId(id);
+//        List<Product> list = productService.getListProductByCategoryId(idCategory);
+//        model.addAttribute("listSimilar", list);
+//        model.addAttribute("productDetail", productService.getProductById(id));
         return "chonmon";
     }
 
@@ -114,12 +99,12 @@ public class ProductController {
         int quantity = Float.valueOf(quantitystring).intValue();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) return "redirect:/login";
-        Product product = productService.getProductById(id);
-        boolean success = cartService.saveItemToCart(product, quantity);
+//        Product product = productService.getProductById(id);
+//        boolean success = cartService.saveItemToCart(product, quantity);
         String msg;
-        if (success) msg = "Thêm giỏ hàng thành công";
-        else msg = "Thêm giỏ hàng thất bại";
-        redirectAttributes.addFlashAttribute("msg", msg);
+//        if (success) msg = "Thêm giỏ hàng thành công";
+//        else msg = "Thêm giỏ hàng thất bại";
+//        redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/product/{id}";
     }
 
@@ -130,23 +115,20 @@ public class ProductController {
 
     @GetMapping("/category/{id}/fillByName/{page}")
     public String handleViewSearchByName(@PathVariable("page") long currentPage,
-                                         @PathVariable("id") int id, Model model,
-                                         @ModelAttribute SearchDTO searchDTO) {
-        long totalPage = productService.getTotalPageByName(id, searchDTO.getName());
-        List<Product> productList = productService.getListProductByHot();
-        Collections.shuffle(productList);
-        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
-        else model.addAttribute("bestSeller", productList.subList(0, 3));
-        model.addAttribute("input", new SearchDTO());
-        model.addAttribute("category", categoryService.getCategoryById(id).get());
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("currentPage", currentPage);
-        List<Product> dsProduct = productService.findProductByName(id, searchDTO.getName(), currentPage);
-        model.addAttribute("filter", new FilterProduct());
+                                         @PathVariable("id") int id, Model model){
+//        long totalPage = productService.getTotalPageByName(id, searchDTO.getName());
+//        List<Product> productList = productService.getListProductByHot();
+//        Collections.shuffle(productList);
+//        if (productList.size() < 4) model.addAttribute("bestSeller", productList);
+//        else model.addAttribute("bestSeller", productList.subList(0, 3));
+//        model.addAttribute("input", new SearchDTO());
+//        model.addAttribute("category", categoryService.getCategoryById(id).get());
+//        model.addAttribute("totalPage", totalPage);
+//        model.addAttribute("currentPage", currentPage);
+//        List<Product> dsProduct = productService.findProductByName(id, searchDTO.getName(), currentPage);
         model.addAttribute("categoryId", id);
-        model.addAttribute("sum", dsProduct.size());
-        model.addAttribute("listProduct", dsProduct);
-        model.addAttribute("currentFilter", searchDTO.getName());
+//        model.addAttribute("sum", dsProduct.size());
+//        model.addAttribute("listProduct", dsProduct);
         return "thucphamkhac";
     }
     @RequestMapping("/personalInfor")

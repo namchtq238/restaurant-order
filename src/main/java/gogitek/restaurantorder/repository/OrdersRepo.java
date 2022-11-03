@@ -11,24 +11,24 @@ import java.util.List;
 
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders, Integer> {
-    //Số lượng đơn hàng
-    @Query(value = "select count(*) from Orders", nativeQuery = true)
-    Integer countOrders();
-
-    @Query(value = "select sum(total_price) from Orders where status = 3", nativeQuery = true)
-    Float getRevenue();
-
-    List<Orders> getAllByUser(User user);
-
-    @Query(value = "select * from orders left join user on orders.user_id = user.id", nativeQuery = true)
-    List<Orders> getOrderUser();
-
-    @Query(value = "select * from orders left join user on orders.user_id = user.id where not (orders.create_at >= :end or orders.create_at <= :start)", nativeQuery = true)
-    List<Orders> getOrderUserFilter(Date start, Date end);
-
-    @Query(value = "select count(*) from orders where status = ?", nativeQuery = true)
-    Integer countOrdersByStatus(int status);
-
-    @Query(value = "select * from orders where status = ?", nativeQuery = true)
-    List<Orders> findOrdersByStatus(int status);
+//    //Số lượng đơn hàng
+//    @Query(value = "select count(*) from Orders", nativeQuery = true)
+//    Integer countOrders();
+//
+//    @Query(value = "select sum(total_price) from Orders where status = 3", nativeQuery = true)
+//    Float getRevenue();
+//
+//    List<Orders> getAllByUser(User user);
+//
+//    @Query(value = "select * from orders left join user on orders.user_id = user.id", nativeQuery = true)
+//    List<Orders> getOrderUser();
+//
+//    @Query(value = "select * from orders left join user on orders.user_id = user.id where not (orders.create_at >= :end or orders.create_at <= :start)", nativeQuery = true)
+//    List<Orders> getOrderUserFilter(Date start, Date end);
+//
+//    @Query(value = "select count(*) from orders where status = ?", nativeQuery = true)
+//    Integer countOrdersByStatus(int status);
+//
+//    @Query(value = "select * from orders where status = ?", nativeQuery = true)
+//    List<Orders> findOrdersByStatus(int status);
 }

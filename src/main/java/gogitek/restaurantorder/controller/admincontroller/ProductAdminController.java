@@ -2,6 +2,7 @@ package gogitek.restaurantorder.controller.admincontroller;
 
 import gogitek.restaurantorder.constaint.FormatPrice;
 import gogitek.restaurantorder.entity.Product;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,21 +17,22 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Controller
+@AllArgsConstructor
 public class ProductAdminController {
     private static final String currentDirectory = System.getProperty("user.dir");
     private static final Path path = Paths.get(currentDirectory + Paths.get("/target/classes/static/image/ImageOrFarm"));
-    private final CategoryService categoryService;
-    private final AdminService adminService;
+//    private final CategoryService categoryService;
+//    private final AdminService adminService;
     private final FormatPrice formatPrice;
-    private final ProductService productService;
+//    private final ProductService productService;
 
-    public ProductAdminController(AdminService adminService, CategoryService categoryService,
-                                  FormatPrice formatPrice, ProductService productService) {
-        this.adminService = adminService;
-        this.categoryService = categoryService;
-        this.formatPrice = formatPrice;
-        this.productService = productService;
-    }
+//    public ProductAdminController(AdminService adminService, CategoryService categoryService,
+//                                  FormatPrice formatPrice, ProductService productService) {
+//        this.adminService = adminService;
+//        this.categoryService = categoryService;
+//        this.formatPrice = formatPrice;
+//        this.productService = productService;
+//    }
 
     @ModelAttribute
     public void addFormatService(Model model) {
@@ -39,13 +41,13 @@ public class ProductAdminController {
 
     @GetMapping("/admin/product")
     public String getViewProductAdmin(Model model) {
-        model.addAttribute("dsProduct", adminService.getListProduct());
+//        model.addAttribute("dsProduct", adminService.getListProduct());
         return "admin-page/product";
     }
 
     @GetMapping("/admin/product/add")
     public String getViewAddProductAdmin(Model model) {
-        model.addAttribute("categoryList", categoryService.getListCategory());
+//        model.addAttribute("categoryList", categoryService.getListCategory());
         model.addAttribute("product", new Product());
         return "admin-page/add-product";
     }
@@ -62,14 +64,14 @@ public class ProductAdminController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        productService.addProduct(product);
+//        productService.addProduct(product);
         return "redirect:/admin/product";
     }
 
     @GetMapping("/admin/product/edit/{id}")
     public String getViewEditProductAdmin(@PathVariable("id") int productId, Model model) {
-        model.addAttribute("categoryList", categoryService.getListCategory());
-        model.addAttribute("product", productService.getProductById(productId));
+//        model.addAttribute("categoryList", categoryService.getListCategory());
+//        model.addAttribute("product", productService.getProductById(productId));
         return "admin-page/add-product";
     }
 
@@ -84,13 +86,13 @@ public class ProductAdminController {
                 e.printStackTrace();
             }
         }
-        productService.updateProduct(productId, product);
+//        productService.updateProduct(productId, product);
         return "redirect:/admin/product";
     }
 
     @GetMapping("/admin/product/delete/{id}")
     public String handleDeleteProductAdmin(@PathVariable("id") int productId) {
-        productService.deleteProduct(productId);
+//        productService.deleteProduct(productId);
         return "redirect:/admin/product";
     }
 

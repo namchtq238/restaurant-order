@@ -2,7 +2,6 @@ package gogitek.restaurantorder.service.serviceimp;
 
 import gogitek.restaurantorder.constaint.Role;
 import gogitek.restaurantorder.entity.User;
-import gogitek.restaurantorder.modelutil.PasswordDTO;
 import gogitek.restaurantorder.repository.UserRepo;
 import gogitek.restaurantorder.security.CustomUserDetails;
 import gogitek.restaurantorder.service.UserService;
@@ -70,19 +69,4 @@ public class UserServiceImp implements UserService {
         SecurityContextHolder.getContext().setAuthentication(newAuth);
         userRepo.save(user);
     }
-
-    @Override
-    public boolean updatePassword(PasswordDTO passwordDTO) {
-        User user = getCurrentUser();
-        if(passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())){
-            if(passwordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())){
-                user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
-                userRepo.save(user);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 }
